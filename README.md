@@ -10,7 +10,7 @@ mol_transform.py -f input.xyz -o output.xyz
 ```
 The `-f` tag stands for `file` and will open the file named `input.xyz`, center the first position into the origin and translate the rest of positions to maintain the structure. The `-o` tag stands for `output`, meaning that you need to add the output path (in our example is `output.xyz`).
 
-If you want to translate it using a specific vector (a, b, c), you'll need to do:
+If you want to translate it using a specific vector (a, b, c), we'll need to use the `-t` tag (that stands to `translate`) and do:
 ```
 mol_transform.py -f input.xyz -o output.xyz -t a b c
 ```
