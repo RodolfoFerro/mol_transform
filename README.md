@@ -19,4 +19,4 @@ For example, we have the position `(0.47050, -0.66520, -1.79270)` in our file `C
 ```
 mol_transform.py -f C20.xyz -o C20_translated.xyz -t -0.47050 0.66520 1.79270
 ```
-**Observe** that we need to inverse the signs of each value of the position, since we want a translation negative to that position. Also, in this example we will create the file `C20_translated.xyz` with the translated positions.
+**PLEASE OBSERVE** that we need to inverse the signs of each value of the position, since we want a translation negative to that position. Also, in this example we will create the file `C20_translated.xyz` with the translated positions.
