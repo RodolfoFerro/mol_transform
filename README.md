@@ -15,7 +15,7 @@ If you want to translate it using a specific vector (a, b, c), you'll need to do
 mol_transform.py -f input.xyz -o output.xyz -t a b c
 ```
 
-For example, we have the position (0.47050, -0.66520, -1.79270) in our file `C20.xyz` and if we want to translate it to the origin (and the rest of the positions to maintain the structure), we would have to run:
+For example, we have the position `(0.47050, -0.66520, -1.79270)` in our file `C20.xyz` and if we want to translate it to the origin (and the rest of the positions to maintain the structure), we would have to run:
 ```
 mol_transform.py -f C20.xyz -o C20_translated.xyz -t -0.47050 0.66520 1.79270
 ```
