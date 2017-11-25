@@ -33,15 +33,51 @@ def write_xyz(filename, p_mat):
     xyz.close()
 
 
-def translate(p_mat, vec=None):
+def center(p_mat):
     """
-    Utility function to translate a set of 3D coordinates
+    Utility function to center a set of 3D coordinates.
+    """
+    min_x, max_x = np.min(p_mat[:, 0]), np.max(p_mat[:, 0])
+    min_y, max_y = np.min(p_mat[:, 1]), np.max(p_mat[:, 1])
+    min_z, max_z = np.min(p_mat[:, 2]), np.max(p_mat[:, 2])
+    mean_x = (max_x + min_x) / 2
+    mean_y = (max_y + min_y) / 2
+    mean_z = (max_z + min_z) / 2
+    t_vec = [-mean_x, -mean_y, -mean_z]
+    t_mat = translate(p_mat, t_vec)
+    return t_mat
+
+
+def translate(p_mat, translation_vec=None):
+    """
+    Utility function to translate a set of 3D coordinates.
     """
     T = np.eye(4)
-    if vec is None:
+    if translation_vec == [0] or translation_vec is None:
         T[:-1, 3] = -p_mat[0]
+        print("(INFO) Transformation matrix to be used:")
+        print(T)
     else:
-        T[:-1, 3] = vec
+        T[:-1, 3] = translation_vec
+        print("(INFO) Transformation matrix to be used:")
+        print(T)
+    t_mat = p_mat.copy()
+    for row in range(len(p_mat)):
+        t_mat[row] = (T @ np.hstack((p_mat[row], [1])))[:-1]
+    return t_mat
+
+
+def scale(p_mat, scaling_vec=None):
+    """
+    Utility function to rotate a set of 3D coordinates.
+    """
+    T = np.eye(4)
+    if scaling_vec is None:
+        return p_mat
+    else:
+        T[:-1, :-1] *= scaling_vec
+        print("(INFO) Transformation matrix to be used:")
+        print(T)
     t_mat = p_mat.copy()
     for row in range(len(p_mat)):
         t_mat[row] = (T @ np.hstack((p_mat[row], [1])))[:-1]
@@ -56,19 +92,36 @@ ap.add_argument("-o", "--output", required=True,
                 help="Path to output .xyz file.")
 ap.add_argument("-t", "--translate", required=False, nargs='+', type=float,
                 help="Translation vector.")
+ap.add_argument("-s", "--scale", required=False, nargs='+', type=float,
+                help="Scaling vector.")
 args = vars(ap.parse_args())
 
-# Ask for transformation:
-print("Okay, we've detected you want to transform {}.".format(args["file"]))
 
 if __name__ == "__main__":
     # Parse args:
     p_mat = read_xyz(args["file"])
     t_vec = args["translate"]
+    s_vec = args["scale"]
     out_f = args["output"]
 
-    # Traslation:
-    t_mat = translate(p_mat, t_vec)
+    # Info about input:
+    print("(INFO) Input file to be transformed: {}.".format(args["file"]))
+
+    # Transformations:
+    if t_vec == [0] or t_vec:
+        print(t_vec)
+        print(type(t_vec))
+        T_mat = translate(p_mat, t_vec)
+    elif s_vec:
+        T_mat = scale(p_mat, s_vec)
+    else:
+        print("(WARNING) Not single transformation selected.")
+        print("(INFO) Molecule centering to be done.")
+        T_mat = center(p_mat)
 
     # Write output:
-    write_xyz(out_f, t_mat)
+    write_xyz(out_f, T_mat)
+    print("(INFO) Processing done.")
+
+    # Info about output:
+    print("(INFO) The output file was stored in: {}.".format(args["output"]))
