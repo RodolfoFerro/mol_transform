@@ -37,6 +37,8 @@ def center(p_mat):
     """
     Utility function to center a set of 3D coordinates.
     """
+    print("(WARNING) Not single transformation selected.")
+    print("(INFO) Molecule centering to be done.")
     min_x, max_x = np.min(p_mat[:, 0]), np.max(p_mat[:, 0])
     min_y, max_y = np.min(p_mat[:, 1]), np.max(p_mat[:, 1])
     min_z, max_z = np.min(p_mat[:, 2]), np.max(p_mat[:, 2])
@@ -53,14 +55,9 @@ def translate(p_mat, translation_vec=None):
     Utility function to translate a set of 3D coordinates.
     """
     T = np.eye(4)
-    if translation_vec == [0] or translation_vec is None:
-        T[:-1, 3] = -p_mat[0]
-        print("(INFO) Transformation matrix to be used:")
-        print(T)
-    else:
-        T[:-1, 3] = translation_vec
-        print("(INFO) Transformation matrix to be used:")
-        print(T)
+    T[:-1, 3] = translation_vec
+    print("(INFO) Transformation matrix to be used:")
+    print(T)
     t_mat = p_mat.copy()
     for row in range(len(p_mat)):
         t_mat[row] = (T @ np.hstack((p_mat[row], [1])))[:-1]
@@ -108,15 +105,11 @@ if __name__ == "__main__":
     print("(INFO) Input file to be transformed: {}.".format(args["file"]))
 
     # Transformations:
-    if t_vec == [0] or t_vec:
-        print(t_vec)
-        print(type(t_vec))
+    if t_vec:
         T_mat = translate(p_mat, t_vec)
     elif s_vec:
         T_mat = scale(p_mat, s_vec)
     else:
-        print("(WARNING) Not single transformation selected.")
-        print("(INFO) Molecule centering to be done.")
         T_mat = center(p_mat)
 
     # Write output:
