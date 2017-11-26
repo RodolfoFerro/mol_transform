@@ -35,7 +35,7 @@ python mol_transform.py -f C20.xyz -o C20_translated.xyz -t -0.47050 0.66520 1.7
 
 To scale the molecule along the 3-axis by a vector `(a, b, c)`, we'll need to use the `-s` tag (that stands to `scale`) and run:
 ```bash
-python mol_transform.py -f C20.xyz -o C20_translated.xyz -s a b c
+python mol_transform.py -f input.xyz -o output.xyz -s a b c
 ```
 
 For instance in our file `C20.xyz`, if we want to scale it to the double of size we would have to run:
