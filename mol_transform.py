@@ -1,5 +1,5 @@
-import argparse
 import numpy as np
+import argparse
 
 
 def read_xyz(filename):
