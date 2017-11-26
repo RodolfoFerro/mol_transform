@@ -9,7 +9,7 @@ The `-f` tag stands for `file` and will open the file named `input.xyz`, center 
 Both tags (`-f` and `-o`) are needed.
 
 
-### Centering
+- ### Centering
 
 Simply run:
 ```bash
@@ -17,7 +17,7 @@ python mol_transform.py -f input.xyz -o output.xyz
 ```
 **PLEASE OBSERVE** that we won't need need any extra parameters for a molecule translation to the center of our Cartesian space.
 
-### Translations
+- ### Translating
 
 To translate a molecule using a specific vector `(a, b, c)`, we'll need to use the `-t` tag (that stands to `translate`) and run:
 ```bash
@@ -31,7 +31,7 @@ python mol_transform.py -f C20.xyz -o C20_translated.xyz -t -0.47050 0.66520 1.7
 **PLEASE OBSERVE** that we need the inverted signs of each value of the position, since we want a negative translation to that position. Also, in this example we will create the file `C20_translated.xyz` with the translated positions.
 
 
-### Scaling
+- ### Scaling
 
 To scale the molecule along the 3-axis by a vector `(a, b, c)`, we'll need to use the `-s` tag (that stands to `scale`) and run:
 ```bash
