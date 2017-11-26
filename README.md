@@ -40,7 +40,7 @@ python mol_transform.py -f input.xyz -o output.xyz -s a b c
 
 For instance in our file `C20.xyz`, if we want to scale it to the double of size we would have to run:
 ```bash
-python mol_transform.py -f C20.xyz -o scaled.xyz -s 2 2 2
+python mol_transform.py -f C20.xyz -o C20_scaled.xyz -s 2 2 2
 ```
 
 ------
